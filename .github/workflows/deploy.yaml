@@ -11,13 +11,20 @@ jobs:
   development:
     runs-on: ubuntu-latest
     environment: development
-
+    
     steps:
     - uses: actions/checkout@v2
 
     - name: Run a script
+      if: github.ref == 'refs/heads/master'
       run: |
         echo "I am running a job in the development environment"
+
+    
+    - name: Go to staging
+      if: github.ref != 'refs/heads/master'
+      run: |
+        echo "Go to staging"
 
   staging:
     runs-on: ubuntu-latest
